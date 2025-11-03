@@ -55,4 +55,16 @@ class MahasiswaController extends Controller
         // 4. Redirect (arahkan) pengguna kembali ke halaman daftar
         return redirect('/mahasiswa');
     }
+
+    public function destroy(string $id)
+{
+    // 1. Cari data mahasiswa berdasarkan ID
+    $mahasiswa = Mahasiswa::find($id);
+
+    // 2. Hapus data dari database
+    $mahasiswa->delete();
+
+    // 3. Redirect (arahkan) pengguna kembali ke halaman daftar
+    return redirect('/mahasiswa');
+}
 }

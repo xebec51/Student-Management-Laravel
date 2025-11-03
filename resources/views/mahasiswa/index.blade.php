@@ -21,17 +21,27 @@
             <tr>
                 <th>Nama Mahasiswa</th>
                 <th>NIM</th>
-            </tr>
+                <th>Aksi</th> </tr>
         </thead>
         <tbody>
             @foreach ($students as $student)
                 <tr>
-                    <td>{{ $student['nama'] }}</td>
-                    <td>{{ $student['nim'] }}</td>
+                    <td>{{ $student->nama }}</td>
+                    <td>{{ $student->nim }}</td>
+
+                    <td>
+                        <form action="/mahasiswa/{{ $student->id }}" method="POST" style="margin:0;">
+                            @csrf
+                            @method('DELETE') <button type="submit"
+                                    style="background-color: #dc3545; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px;"
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                Hapus
+                            </button>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-
 </body>
 </html>

@@ -16,3 +16,9 @@ Route::get('/mahasiswa/create', [MahasiswaController::class, 'create']);
 Route::post('/mahasiswa', [MahasiswaController::class, 'store']);
 
 Route::delete('/mahasiswa/{id}', [MahasiswaController::class, 'destroy']);
+
+// Rute untuk menampilkan form edit (berisi data lama)
+Route::get('/mahasiswa/{id}/edit', [MahasiswaController::class, 'edit']);
+
+// Rute untuk memproses/menyimpan perubahan data dari form edit
+Route::put('/mahasiswa/{id}', [MahasiswaController::class, 'update']);

@@ -29,10 +29,17 @@
                     <td>{{ $student->nama }}</td>
                     <td>{{ $student->nim }}</td>
 
-                    <td>
+                    <td style="display: flex; gap: 5px;">
+                        <a href="/mahasiswa/{{ $student->id }}/edit"
+                           style="background-color: #ffc107; color: black; padding: 5px 10px; text-decoration: none; border-radius: 4px;">
+                           Edit
+                        </a>
+
                         <form action="/mahasiswa/{{ $student->id }}" method="POST" style="margin:0;">
                             @csrf
-                            @method('DELETE') <button type="submit"
+                            @method('DELETE')
+
+                            <button type="submit"
                                     style="background-color: #dc3545; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px;"
                                     onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                                 Hapus

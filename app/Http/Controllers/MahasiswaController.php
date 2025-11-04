@@ -67,4 +67,46 @@ class MahasiswaController extends Controller
     // 3. Redirect (arahkan) pengguna kembali ke halaman daftar
     return redirect('/mahasiswa');
 }
+
+// ... (method destroy Anda) ...
+
+    // ----------------------------------------------
+    // TAMBAHKAN METHOD BARU INI (UNTUK MENAMPILKAN FORM EDIT)
+    // ----------------------------------------------
+    /**
+     * Menampilkan form untuk mengedit data.
+     */
+    public function edit(string $id)
+    {
+        // 1. Cari data mahasiswa berdasarkan ID
+        $mahasiswa = Mahasiswa::find($id);
+
+        // 2. Kirim data mahasiswa yang ditemukan ke view 'edit'
+        return view('mahasiswa.edit', [
+            'judul' => 'Edit Data Mahasiswa',
+            'student' => $mahasiswa // Kirim data mahasiswa yang mau diedit
+        ]);
+    }
+
+    // ----------------------------------------------
+    // TAMBAHKAN METHOD BARU INI (UNTUK MENYIMPAN PERUBAHAN)
+    // ----------------------------------------------
+    /**
+     * Memperbarui data di database.
+     */
+    public function update(Request $request, string $id)
+    {
+        // 1. Cari data mahasiswa berdasarkan ID
+        $mahasiswa = Mahasiswa::find($id);
+
+        // 2. Ambil data dari form dan perbarui properti model
+        $mahasiswa->nama = $request->input('nama_mahasiswa');
+        $mahasiswa->nim = $request->input('nim_mahasiswa');
+
+        // 3. Simpan perubahan ke database
+        $mahasiswa->save();
+
+        // 4. Redirect (arahkan) pengguna kembali ke halaman daftar
+        return redirect('/mahasiswa');
+    }
 }

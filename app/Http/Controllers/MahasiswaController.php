@@ -37,23 +37,22 @@ class MahasiswaController extends Controller
         ]);
     }
 
-    // ----------------------------------------------
-    // TAMBAHKAN METHOD BARU INI (UNTUK MENYIMPAN DATA)
-    // ----------------------------------------------
     public function store(Request $request)
     {
-        // 1. Buat instance Model Mahasiswa baru
+        // 1. Validasi data
+        $validatedData = $request->validate([
+            'nama' => 'required|string|max:255',
+            'nim' => 'required|string|max:20|unique:mahasiswas,nim' // 'unique:mahasiswas,nim' berarti harus unik di tabel 'mahasiswas' kolom 'nim'
+        ]);
+
+        // 2. Buat instance Model Mahasiswa baru
         $mahasiswa = new Mahasiswa;
-
-        // 2. Ambil data dari form dan isi ke properti model
-        $mahasiswa->nama = $request->input('nama_mahasiswa');
-        $mahasiswa->nim = $request->input('nim_mahasiswa');
-
-        // 3. Simpan ke database
+        $mahasiswa->nama = $validatedData['nama'];
+        $mahasiswa->nim = $validatedData['nim'];
         $mahasiswa->save();
 
-        // 4. Redirect (arahkan) pengguna kembali ke halaman daftar
-        return redirect('/mahasiswa');
+        // 3. Redirect (arahkan) pengguna kembali ke halaman daftar
+        return redirect('/mahasiswa')->with('success', 'Data mahasiswa berhasil ditambahkan!'); // Menambah pesan sukses
     }
 
     public function destroy(string $id)
@@ -88,25 +87,26 @@ class MahasiswaController extends Controller
         ]);
     }
 
-    // ----------------------------------------------
-    // TAMBAHKAN METHOD BARU INI (UNTUK MENYIMPAN PERUBAHAN)
-    // ----------------------------------------------
-    /**
-     * Memperbarui data di database.
-     */
     public function update(Request $request, string $id)
     {
-        // 1. Cari data mahasiswa berdasarkan ID
+        // 1. Validasi data
+        $validatedData = $request->validate([
+            'nama' => 'required|string|max:255',
+            'nim' => [
+                'required',
+                'string',
+                'max:20',
+                Rule::unique('mahasiswas', 'nim')->ignore($id) // Unik, KECUALI untuk ID mahasiswa ini sendiri
+            ]
+        ]);
+
+        // 2. Cari data mahasiswa berdasarkan ID
         $mahasiswa = Mahasiswa::find($id);
-
-        // 2. Ambil data dari form dan perbarui properti model
-        $mahasiswa->nama = $request->input('nama_mahasiswa');
-        $mahasiswa->nim = $request->input('nim_mahasiswa');
-
-        // 3. Simpan perubahan ke database
+        $mahasiswa->nama = $validatedData['nama'];
+        $mahasiswa->nim = $validatedData['nim'];
         $mahasiswa->save();
 
-        // 4. Redirect (arahkan) pengguna kembali ke halaman daftar
-        return redirect('/mahasiswa');
+        // 3. Redirect (arahkan) pengguna kembali ke halaman daftar
+        return redirect('/mahasiswa')->with('success', 'Data mahasiswa berhasil diperbarui!'); // Menambah pesan sukses
     }
 }

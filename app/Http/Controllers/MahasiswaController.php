@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Mahasiswa; // 1. TAMBAHKAN IMPORT MODEL INI
+use Illuminate\Validation\Rule; // Tambahkan import Rule untuk validasi unik saat update
 
 class MahasiswaController extends Controller
 {
@@ -45,11 +46,7 @@ class MahasiswaController extends Controller
             'nim' => 'required|string|max:20|unique:mahasiswas,nim' // 'unique:mahasiswas,nim' berarti harus unik di tabel 'mahasiswas' kolom 'nim'
         ]);
 
-        // 2. Buat instance Model Mahasiswa baru
-        $mahasiswa = new Mahasiswa;
-        $mahasiswa->nama = $validatedData['nama'];
-        $mahasiswa->nim = $validatedData['nim'];
-        $mahasiswa->save();
+        Mahasiswa::create($validatedData);
 
         // 3. Redirect (arahkan) pengguna kembali ke halaman daftar
         return redirect('/mahasiswa')->with('success', 'Data mahasiswa berhasil ditambahkan!'); // Menambah pesan sukses
@@ -58,7 +55,7 @@ class MahasiswaController extends Controller
     public function destroy(string $id)
 {
     // 1. Cari data mahasiswa berdasarkan ID
-    $mahasiswa = Mahasiswa::find($id);
+    $mahasiswa = Mahasiswa::findOrFail($id);
 
     // 2. Hapus data dari database
     $mahasiswa->delete();
@@ -78,7 +75,7 @@ class MahasiswaController extends Controller
     public function edit(string $id)
     {
         // 1. Cari data mahasiswa berdasarkan ID
-        $mahasiswa = Mahasiswa::find($id);
+        $mahasiswa = Mahasiswa::findOrFail($id);
 
         // 2. Kirim data mahasiswa yang ditemukan ke view 'edit'
         return view('mahasiswa.edit', [
@@ -101,10 +98,10 @@ class MahasiswaController extends Controller
         ]);
 
         // 2. Cari data mahasiswa berdasarkan ID
-        $mahasiswa = Mahasiswa::find($id);
-        $mahasiswa->nama = $validatedData['nama'];
-        $mahasiswa->nim = $validatedData['nim'];
-        $mahasiswa->save();
+        $mahasiswa = Mahasiswa::findOrFail($id);
+
+        // 3. Update data menggunakan Mass Assignment
+        $mahasiswa->update($validatedData);
 
         // 3. Redirect (arahkan) pengguna kembali ke halaman daftar
         return redirect('/mahasiswa')->with('success', 'Data mahasiswa berhasil diperbarui!'); // Menambah pesan sukses

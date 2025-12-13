@@ -1,6 +1,6 @@
 # Student Management - Laravel
 
-Ini adalah aplikasi web sederhana yang dibangun menggunakan framework Laravel untuk mengelola data mahasiswa. Aplikasi ini menerapkan fungsionalitas CRUD (Create, Read, Update, Delete) penuh.
+Proyek ini adalah aplikasi web sederhana yang dibangun menggunakan framework Laravel untuk mengelola data mahasiswa. Aplikasi ini menerapkan fungsionalitas CRUD (Create, Read, Update, Delete) penuh.
 
 Proyek ini dibuat sebagai latihan untuk memahami konsep dasar Laravel:
 * Routing

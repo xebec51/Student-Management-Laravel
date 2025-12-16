@@ -25,7 +25,7 @@ Proyek ini dibuat sebagai latihan untuk memahami konsep dasar Laravel:
 
 ## 🛠️ Panduan Instalasi & Setup
 
-Berikut adalah langkah-langkah untuk menjalankan proyek ini di komputer lokal Anda.
+Berikut adalah langkah-langkah untuk menjalankan proyek ini di komputer/laptop lokal Anda.
 
 ### 1. Prasyarat
 

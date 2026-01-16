@@ -29,7 +29,7 @@ Berikut adalah langkah-langkah untuk menjalankan proyek ini di komputer/laptop l
 
 ### 1. Prasyarat
 
-Pastikan Anda sudah menginstal perangkat lunak berikut:
+Pastikan Anda sudah menginstal software berikut:
 * [XAMPP](https://www.apachefriends.org/index.html) (yang mencakup PHP, Apache, dan MySQL)
 * [Composer](https://getcomposer.org/)
 * [Git](https://git-scm.com/)
